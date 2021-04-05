@@ -138,5 +138,23 @@ public class LinkedList {
         return s1;
     }
 
-    
+    public Node PartitionV2(Node n, int x) {
+        Node head = n;
+        Node tail = n;
+
+        while (n != null) {
+            Node next = n.next;
+            if (n.data < x) {
+                n.next = head;
+                head = n;
+            } else {
+                tail.next = n;
+                tail = n;
+            }
+            n=next;
+        }
+        tail.next = null;
+
+        return head;
+    }
 }
