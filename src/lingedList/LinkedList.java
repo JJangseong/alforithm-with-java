@@ -102,4 +102,39 @@ public class LinkedList {
         n.next = next.next;
         return true;
     }
+
+    private Node Partition(Node n, int x) {
+        Node s1 = null;
+        Node e1 = null;
+        Node s2 = null;
+        Node e2 = null;
+
+        while (n != null) {
+            Node next = n.next;
+            n.next = null;
+            if (n.data < x) {
+                if (s1 == null) {
+                    s1 = n;
+                    e1 = s1;
+                } else {
+                    e1.next = n;
+                    e1 =n;
+                }
+            } else {
+                if (s2 == null) {
+                    s2 = n;
+                    e2 = s2;
+                } else {
+                    e2.next = n;
+                    e2 = n;
+                }
+            }
+            n = next;
+        }
+        if (s1 == null) {
+            return s2;
+        }
+        e1.next = s2;
+        return s1;
+    }
 }
