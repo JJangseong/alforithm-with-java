@@ -103,7 +103,7 @@ public class LinkedList {
         return true;
     }
 
-    private Node Partition(Node n, int x) {
+    public Node Partition(Node n, int x) {
         Node s1 = null;
         Node e1 = null;
         Node s2 = null;
@@ -137,4 +137,6 @@ public class LinkedList {
         e1.next = s2;
         return s1;
     }
+
+    
 }
