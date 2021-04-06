@@ -2,6 +2,12 @@ package lingedList;
 
 public class LinkedListUtils {
 
+    /**
+     * 뒤에서 k 번째 Node를 반환하는 함수
+     * @param first
+     * @param k
+     * @return
+     */
     public static LinkedList.Node kthToLast(LinkedList.Node first, int k) {
         LinkedList.Node n = first;
         int total = 1;
@@ -20,6 +26,13 @@ public class LinkedListUtils {
         public int count = 0;
     }
 
+    /**
+     * 뒤에서 k 번째 Node를 반환하는 함수 ( 재귀함수 버전 )
+     * @param n
+     * @param k
+     * @param r
+     * @return
+     */
     public static LinkedList.Node kthToLast(LinkedList.Node n, int k, Reference r) {
         if (n == null) {
             return null;
@@ -34,6 +47,11 @@ public class LinkedListUtils {
         return found;
     }
 
+    /**
+     *  Node로 LinkedList에서 삭제 함수
+     * @param n
+     * @return
+     */
     public static boolean removeByNode(LinkedList.Node n) {
         if (n == null || n.next == null) return false;
 
@@ -43,6 +61,12 @@ public class LinkedListUtils {
         return true;
     }
 
+    /**
+     * x 값 기준으로 작으면 왼쪽 크면 오른쪽으로 정렬하는 함수
+     * @param n
+     * @param x
+     * @return
+     */
     public static LinkedList.Node Partition(LinkedList.Node n, int x) {
         LinkedList.Node s1 = null;
         LinkedList.Node e1 = null;
@@ -78,6 +102,12 @@ public class LinkedListUtils {
         return s1;
     }
 
+    /**
+     *  x 값 기준으로 작으면 왼쪽 크면 오른쪽으로 정렬하는 함수 ( 지역변수 줄인 버전 )
+     * @param n
+     * @param x
+     * @return
+     */
     public static LinkedList.Node PartitionV2(LinkedList.Node n, int x) {
         LinkedList.Node head = n;
         LinkedList.Node tail = n;
@@ -122,6 +152,12 @@ public class LinkedListUtils {
         return result;
     }
 
+    /**
+     * 두개의 LinkedList를 각각 반전후 합친 값을 다시 LinkedList 로 만드는 함수
+     * @param l1
+     * @param l2
+     * @return
+     */
     public static LinkedList.Node sumLists(LinkedList.Node l1, LinkedList.Node l2) {
         int len1 = getListLength(l1);
         int len2 = getListLength(l2);
