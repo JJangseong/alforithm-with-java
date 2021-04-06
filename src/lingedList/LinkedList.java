@@ -6,6 +6,9 @@ public class LinkedList {
     static class Node {
         int data;
         Node next  = null;
+
+        Node(){}
+        Node(int data) { this.data = data; }
     }
 
     LinkedList() {

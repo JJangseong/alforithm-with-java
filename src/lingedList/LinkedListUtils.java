@@ -58,7 +58,7 @@ public class LinkedListUtils {
                     e1 = s1;
                 } else {
                     e1.next = n;
-                    e1 =n;
+                    e1 = n;
                 }
             } else {
                 if (s2 == null) {
@@ -91,7 +91,7 @@ public class LinkedListUtils {
                 tail.next = n;
                 tail = n;
             }
-            n=next;
+            n = next;
         }
         tail.next = null;
 
@@ -103,7 +103,7 @@ public class LinkedListUtils {
             return null;
         }
 
-        LinkedList.Node result =new LinkedList.Node();
+        LinkedList.Node result = new LinkedList.Node();
         int value = carry;
 
         if (l1 != null) {
@@ -117,9 +117,89 @@ public class LinkedListUtils {
         result.data = value % 10;
 
         if (l1 != null || l2 != null) {
-            result =  sumeLists(l1 == null ? null : l1.next, l2 == null ? null : l2.next, value >= 10 ? 1 : 0);
+            result = sumeLists(l1 == null ? null : l1.next, l2 == null ? null : l2.next, value >= 10 ? 1 : 0);
         }
         return result;
     }
 
+    public static LinkedList.Node sumLists(LinkedList.Node l1, LinkedList.Node l2) {
+        int len1 = getListLength(l1);
+        int len2 = getListLength(l2);
+
+        if (len1 < len2) {
+            l1 = LPadList(l1, len2 - len1);
+        } else {
+            l2 = LPadList(l2, len1 - len2);
+        }
+
+        Storage storage = addLists(l1, l2);
+        if (storage.carry != 0) {
+            storage.result = insertBefore(storage.result, storage.carry);
+        }
+        return storage.result;
+    }
+
+    private static Storage addLists(LinkedList.Node l1, LinkedList.Node l2) {
+        if (l1 == null && l2 == null) {
+            Storage storage = new Storage();
+            return storage;
+        }
+        Storage storage = addLists(l1.next, l2.next);
+        int value = storage.carry + l1.data + l2.data;
+        int data = value % 10;
+        storage.result = insertBefore(storage.result, data);
+        storage.carry = value / 10;
+
+        return storage;
+    }
+
+    /**
+     * LinkedList 길이 반환하는 함수
+     *
+     * @param l
+     * @return
+     */
+    public static int getListLength(LinkedList.Node l) {
+        int total = 0;
+        while (l != null) {
+            total++;
+            l = l.next;
+        }
+        return total;
+    }
+
+    /**
+     * LinkedList 앞에 데이터를 넣어주는 함수
+     *
+     * @param node
+     * @param data
+     * @return
+     */
+    public static LinkedList.Node insertBefore(LinkedList.Node node, int data) {
+        LinkedList.Node before = new LinkedList.Node(data);
+        if (node != null) {
+            before.next = node;
+        }
+        return before;
+    }
+
+    /**
+     * LinkedList 빈곳에 0으로 채워주는 함수
+     *
+     * @param l
+     * @param length
+     * @return
+     */
+    public static LinkedList.Node LPadList(LinkedList.Node l, int length) {
+        LinkedList.Node head = l;
+        for (int i = 0; i < length; i++) {
+            head = insertBefore(head, 0);
+        }
+        return head;
+    }
+}
+
+class Storage {
+    int carry = 0;
+    LinkedList.Node result = null;
 }
