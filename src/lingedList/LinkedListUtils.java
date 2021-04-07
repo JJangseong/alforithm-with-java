@@ -1,5 +1,7 @@
 package lingedList;
 
+import java.util.Stack;
+
 public class LinkedListUtils {
 
     /**
@@ -233,9 +235,118 @@ public class LinkedListUtils {
         }
         return head;
     }
+
+    /**
+     * 1 2 3 2 1 처럼 뒤집어도 안뒤집어도 같은지를 비교하는 함수
+     * @param head
+     * @return
+     */
+    public static boolean isPalindrome(LinkedList.Node head) {
+        LinkedList.Node reversed = reverseAndClone(head);
+
+        return isEqual(head, reversed);
+    }
+
+    public static boolean isPalindromeV2(LinkedList.Node head) {
+        LinkedList.Node fast = head;
+        LinkedList.Node slow = head;
+
+        Stack<Integer> stack = new Stack<>();
+
+        while (fast != null && fast.next != null) {
+            stack.push(slow.data);
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        if (fast != null) {
+            slow = slow.next;
+        }
+
+        while (slow != null) {
+            int c = stack.pop();
+
+            if (slow.data != c) {
+                return false;
+            }
+            slow = slow.next;
+        }
+        return true;
+    }
+
+    public static boolean isPalindromeV3(LinkedList.Node head) {
+        int length = getListLength(head);
+        StorageByPalindrome storage = isPalindromeRecursive(head, length); 
+        return storage.result;
+    }
+
+    private static StorageByPalindrome isPalindromeRecursive(LinkedList.Node head, int length) {
+        if (head == null || length <= 0) {
+            return new StorageByPalindrome(head, true);
+        } else if (length == 1) {
+            return new StorageByPalindrome(head.next, true);
+        }
+
+        StorageByPalindrome storage = isPalindromeRecursive(head.next, length - 1);
+
+        if (!storage.result || storage.node == null) {
+            return storage;
+        }
+
+        storage.result = (head.data == storage.node.data);
+
+        storage.node = storage.node.next;
+        return storage;
+    }
+
+    /**
+     * 노드가 같은지 비교하는 함수
+     * @param one
+     * @param two
+     * @return
+     */
+    private static boolean isEqual(LinkedList.Node one , LinkedList.Node two) {
+        while (one != null && two != null) {
+            if (one.data != two.data) {
+                return false;
+            }
+            one = one.next;
+            two = two.next;
+        }
+        return one == null && two == null;
+    }
+
+    /**
+     * 노드를 대칭으로 뒤집는 함수
+     * @param node
+     * @return
+     */
+    private static LinkedList.Node reverseAndClone(LinkedList.Node node) {
+        LinkedList.Node head = null;
+        while (node != null) {
+            LinkedList.Node n = new LinkedList.Node(node.data);
+            n.next = head;
+            head = n;
+            node = node.next;
+        }
+        return head;
+    }
+    
+    
 }
 
 class Storage {
     int carry = 0;
     LinkedList.Node result = null;
 }
+
+class StorageByPalindrome {
+    public LinkedList.Node node;
+    public boolean result;
+
+    StorageByPalindrome(LinkedList.Node n, boolean r) {
+        node = n;
+        result = r;
+    }
+}
+
