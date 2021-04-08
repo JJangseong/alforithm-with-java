@@ -280,7 +280,7 @@ public class LinkedListUtils {
         return storage.result;
     }
 
-    private static StorageByPalindrome isPalindromeRecursive(LinkedList.Node head, int length) {
+    public static StorageByPalindrome isPalindromeRecursive(LinkedList.Node head, int length) {
         if (head == null || length <= 0) {
             return new StorageByPalindrome(head, true);
         } else if (length == 1) {
@@ -305,7 +305,7 @@ public class LinkedListUtils {
      * @param two
      * @return
      */
-    private static boolean isEqual(LinkedList.Node one , LinkedList.Node two) {
+    public static boolean isEqual(LinkedList.Node one , LinkedList.Node two) {
         while (one != null && two != null) {
             if (one.data != two.data) {
                 return false;
@@ -321,7 +321,7 @@ public class LinkedListUtils {
      * @param node
      * @return
      */
-    private static LinkedList.Node reverseAndClone(LinkedList.Node node) {
+    public static LinkedList.Node reverseAndClone(LinkedList.Node node) {
         LinkedList.Node head = null;
         while (node != null) {
             LinkedList.Node n = new LinkedList.Node(node.data);
@@ -331,7 +331,33 @@ public class LinkedListUtils {
         }
         return head;
     }
-    
+
+    /**
+     * 두 노드의 교차점을 찾아서 노드를 반환 하는 함수
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public static LinkedList.Node getIntersection(LinkedList.Node l1, LinkedList.Node l2) {
+        int len1 = getListLength(l1);
+        int len2 = getListLength(l2);
+
+        if (len1 > len2) {
+            l1 = l1.get(len1 - len2);
+        } else if (len1 < len2) {
+            l2 = l2.get(len2 - len1);
+        }
+
+        while (l1 != null && l2 != null) {
+            if (l1 == l2) {
+                return l1;
+            }
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+
+        return null;
+    }
     
 }
 
