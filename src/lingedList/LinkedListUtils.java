@@ -342,11 +342,11 @@ public class LinkedListUtils {
         int len1 = getListLength(l1);
         int len2 = getListLength(l2);
 
-        if (len1 > len2) {
-            l1 = l1.get(len1 - len2);
-        } else if (len1 < len2) {
-            l2 = l2.get(len2 - len1);
-        }
+//        if (len1 > len2) {
+//            l1 = l1.get(len1 - len2);
+//        } else if (len1 < len2) {
+//            l2 = l2.get(len2 - len1);
+//        }
 
         while (l1 != null && l2 != null) {
             if (l1 == l2) {
