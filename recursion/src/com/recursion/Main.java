@@ -72,12 +72,14 @@ public class Main {
         return 1 + length(str.substring(1));
     }
 
+    // 문자열 출력
     public static void printChars(String str) {
         if (str.length() == 0) return;
         System.out.println(str.charAt(0));
         printChars(str.substring(1));
     }
 
+    // 문자열 반대로 출력
     public static void printCharsReverse(String str) {
         if (str.length() == 0) return;
         printCharsReverse(str.substring(1));
