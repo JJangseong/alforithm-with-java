@@ -30,7 +30,7 @@ public class LinkedList<T> {
     }
 
     public Node<T> get(int index) {
-        if(index > this.size) throw new IndexOutOfBoundsException();
+        if (index > this.size || index < 0) throw new IndexOutOfBoundsException();
 
         Node<T> node = this.head;
         int count = 0;
@@ -43,23 +43,24 @@ public class LinkedList<T> {
     }
 
     public void remove(int index) {
-        if(index > this.size) throw new IndexOutOfBoundsException();
-
-        if(index == 0) {
+        if (index > this.size || index < 0) throw new IndexOutOfBoundsException();
+        this.size--;
+        if (index == 0) {
             Node<T> deleteNode = this.head.nextNode;
             Node<T> nextNode = deleteNode.nextNode;
             this.head.nextNode = nextNode;
-            nextNode.prevNode = this.head;
+            if (nextNode != null)
+                nextNode.prevNode = this.head;
             return;
         }
 
-        if(index == size) {
+        if (index == size) {
             Node<T> deleteNode = this.get(index);
             deleteNode.prevNode.nextNode = null;
             return;
         }
-        Node<T> node = this.get(index-1);
-        Node<T> nextNode = this.get(index+1);
+        Node<T> node = this.get(index - 1);
+        Node<T> nextNode = this.get(index + 1);
         node.nextNode = nextNode;
         nextNode.prevNode = node;
     }

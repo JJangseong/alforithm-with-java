@@ -18,11 +18,16 @@ public class Main {
         list.add(7);
         list.add(6);
         list.add(5);
+        System.out.println(list.getSize());
         list.print();
         list.remove(2);
+        list.remove(2);
+        list.remove(2);
+        list.remove(2);
+        list.remove(2);
+        list.remove(1);
+        list.remove(0);
+        System.out.println(list.getSize());
         list.print();
-        System.out.println(list.get(0).data);
-
-
     }
 }
