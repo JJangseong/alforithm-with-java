@@ -1,4 +1,4 @@
-package com.recursion;
+package com.study;
 
 /**
  * Created by marathoner on 2022/03/16

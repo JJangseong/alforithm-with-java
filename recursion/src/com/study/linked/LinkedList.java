@@ -1,4 +1,4 @@
-package com.recursion.array;
+package com.study.linked;
 
 /**
  * Created by marathoner on 2022/03/19
@@ -26,6 +26,26 @@ public class LinkedList<T> {
         Node<T> node = this.get(size);
         node.nextNode = newNode;
         newNode.prevNode = node;
+        size++;
+    }
+
+    public void add(int index, T data) {
+        if (index > this.size || index < 0) throw new IndexOutOfBoundsException();
+
+        Node<T> newNode = new Node<>();
+        newNode.data = data;
+
+        Node<T> node = this.get(index);
+        if(node == null || size == index) this.add(data);
+        else {
+            Node<T> prevNode = node.prevNode;
+
+            prevNode.nextNode = newNode;
+            newNode.prevNode = prevNode;
+            newNode.nextNode = node;
+            node.prevNode = newNode;
+        }
+
         size++;
     }
 
